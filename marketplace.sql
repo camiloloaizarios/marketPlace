@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2019 a las 04:11:23
--- Versión del servidor: 10.1.40-MariaDB
--- Versión de PHP: 7.1.29
+-- Tiempo de generación: 01-06-2019 a las 23:57:12
+-- Versión del servidor: 10.1.39-MariaDB
+-- Versión de PHP: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `auth_group` (
   `id` int(11) NOT NULL,
-  `name` varchar(80) NOT NULL
+  `name` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -86,7 +86,19 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (21, 'Can add session', 6, 'add_session'),
 (22, 'Can change session', 6, 'change_session'),
 (23, 'Can delete session', 6, 'delete_session'),
-(24, 'Can view session', 6, 'view_session');
+(24, 'Can view session', 6, 'view_session'),
+(25, 'Can add categoria', 7, 'add_category'),
+(26, 'Can change categoria', 7, 'change_category'),
+(27, 'Can delete categoria', 7, 'delete_category'),
+(28, 'Can view categoria', 7, 'view_category'),
+(29, 'Can add subcategoria', 8, 'add_subcategory'),
+(30, 'Can change subcategoria', 8, 'change_subcategory'),
+(31, 'Can delete subcategoria', 8, 'delete_subcategory'),
+(32, 'Can view subcategoria', 8, 'view_subcategory'),
+(33, 'Can add producto', 9, 'add_product'),
+(34, 'Can change producto', 9, 'change_product'),
+(35, 'Can delete producto', 9, 'delete_product'),
+(36, 'Can view producto', 9, 'view_product');
 
 -- --------------------------------------------------------
 
@@ -107,6 +119,13 @@ CREATE TABLE `auth_user` (
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `auth_user`
+--
+
+INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
+(1, 'pbkdf2_sha256$150000$xAtl04Ah8Tes$azgv8kKg5Xc6jWDmR1SCERe4xBa4x1wEnmzMzjHO4CM=', '2019-06-01 20:58:51.738579', 1, 'project', '', '', 'admin@admin.com', 1, 1, '2019-06-01 20:46:12.575805');
 
 -- --------------------------------------------------------
 
@@ -149,6 +168,18 @@ CREATE TABLE `django_admin_log` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `django_admin_log`
+--
+
+INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`, `action_flag`, `change_message`, `content_type_id`, `user_id`) VALUES
+(1, '2019-06-01 21:01:18.295791', '1', 'ROPA', 1, '[{\"added\": {}}]', 7, 1),
+(2, '2019-06-01 21:01:36.588400', '2', 'ZAPATOS', 1, '[{\"added\": {}}]', 7, 1),
+(3, '2019-06-01 21:01:45.318603', '3', 'ACCESORIOS', 1, '[{\"added\": {}}]', 7, 1),
+(4, '2019-06-01 21:03:59.853405', '1', 'VESTIDOS', 1, '[{\"added\": {}}]', 8, 1),
+(5, '2019-06-01 21:06:08.882232', '1', 'Vestidos normales', 1, '[{\"added\": {}}]', 9, 1),
+(6, '2019-06-01 21:40:55.770080', '1', 'Vestidos normales', 2, '[{\"changed\": {\"fields\": [\"price\"]}}]', 9, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -171,6 +202,9 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
 (5, 'contenttypes', 'contenttype'),
+(7, 'products', 'category'),
+(9, 'products', 'product'),
+(8, 'products', 'subcategory'),
 (6, 'sessions', 'session');
 
 -- --------------------------------------------------------
@@ -205,7 +239,12 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (12, 'auth', '0007_alter_validators_add_error_messages', '2019-05-20 19:09:41.572643'),
 (13, 'auth', '0008_alter_user_username_max_length', '2019-05-20 19:09:42.509665'),
 (14, 'auth', '0009_alter_user_last_name_max_length', '2019-05-20 19:09:43.279397'),
-(15, 'sessions', '0001_initial', '2019-05-20 19:09:43.793718');
+(15, 'sessions', '0001_initial', '2019-05-20 19:09:43.793718'),
+(16, 'auth', '0010_alter_group_name_max_length', '2019-06-01 20:33:29.295662'),
+(17, 'auth', '0011_update_proxy_permissions', '2019-06-01 20:33:29.362995'),
+(18, 'products', '0001_initial', '2019-06-01 20:33:29.531941'),
+(19, 'products', '0002_product_price', '2019-06-01 21:28:57.048493'),
+(20, 'products', '0003_auto_20190601_1639', '2019-06-01 21:39:14.558118');
 
 -- --------------------------------------------------------
 
@@ -218,6 +257,78 @@ CREATE TABLE `django_session` (
   `session_data` longtext NOT NULL,
   `expire_date` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('shiq37a39fd078uv1i8clna6a4zd2466', 'NzBhZTJjNjc4NWM0ODMzZGM0NTY1NjNiMDMzOTVlZWQ3YmQ1MTE3YTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhNzgzODdiMDQ3ZjVmN2Q4MjljNjQ5N2QzOGNkODM2NjA0ZjRmODMyIn0=', '2019-06-15 20:58:51.746388');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `products_category`
+--
+
+CREATE TABLE `products_category` (
+  `id` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `created` datetime(6) NOT NULL,
+  `updated` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `products_category`
+--
+
+INSERT INTO `products_category` (`id`, `title`, `created`, `updated`) VALUES
+(1, 'ROPA', '2019-06-01 21:01:18.295791', '2019-06-01 21:01:18.295791'),
+(2, 'ZAPATOS', '2019-06-01 21:01:36.588400', '2019-06-01 21:01:36.588400'),
+(3, 'ACCESORIOS', '2019-06-01 21:01:45.317463', '2019-06-01 21:01:45.317463');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `products_product`
+--
+
+CREATE TABLE `products_product` (
+  `id` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `created` datetime(6) NOT NULL,
+  `updated` datetime(6) NOT NULL,
+  `subcategory_id` int(11) DEFAULT NULL,
+  `price` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `products_product`
+--
+
+INSERT INTO `products_product` (`id`, `title`, `created`, `updated`, `subcategory_id`, `price`) VALUES
+(1, 'Vestidos normales', '2019-06-01 21:06:08.878323', '2019-06-01 21:40:55.770080', 1, '50.000');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `products_subcategory`
+--
+
+CREATE TABLE `products_subcategory` (
+  `id` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `created` datetime(6) NOT NULL,
+  `updated` datetime(6) NOT NULL,
+  `category_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `products_subcategory`
+--
+
+INSERT INTO `products_subcategory` (`id`, `title`, `created`, `updated`, `category_id`) VALUES
+(1, 'VESTIDOS', '2019-06-01 21:03:59.843290', '2019-06-01 21:03:59.845247', 1);
 
 --
 -- Índices para tablas volcadas
@@ -297,6 +408,26 @@ ALTER TABLE `django_session`
   ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
 
 --
+-- Indices de la tabla `products_category`
+--
+ALTER TABLE `products_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `products_product`
+--
+ALTER TABLE `products_product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `products_product_subcategory_id_b28a1e3b_fk_products_` (`subcategory_id`);
+
+--
+-- Indices de la tabla `products_subcategory`
+--
+ALTER TABLE `products_subcategory`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `products_subcategory_category_id_44d297b7_fk_products_` (`category_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -316,13 +447,13 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT de la tabla `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_user_groups`
@@ -340,19 +471,37 @@ ALTER TABLE `auth_user_user_permissions`
 -- AUTO_INCREMENT de la tabla `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `products_category`
+--
+ALTER TABLE `products_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `products_product`
+--
+ALTER TABLE `products_product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `products_subcategory`
+--
+ALTER TABLE `products_subcategory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -391,6 +540,18 @@ ALTER TABLE `auth_user_user_permissions`
 ALTER TABLE `django_admin_log`
   ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Filtros para la tabla `products_product`
+--
+ALTER TABLE `products_product`
+  ADD CONSTRAINT `products_product_subcategory_id_b28a1e3b_fk_products_` FOREIGN KEY (`subcategory_id`) REFERENCES `products_subcategory` (`id`);
+
+--
+-- Filtros para la tabla `products_subcategory`
+--
+ALTER TABLE `products_subcategory`
+  ADD CONSTRAINT `products_subcategory_category_id_44d297b7_fk_products_` FOREIGN KEY (`category_id`) REFERENCES `products_category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
